@@ -1,15 +1,21 @@
+import com.me.themoviedb.buildsrc.AppSettings
+import com.me.themoviedb.buildsrc.Deps
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
-    compileSdk 30
+    compileSdk AppSettings.COMPILE_SDK
 
     defaultConfig {
         applicationId "com.me.themoviedb"
-        minSdk 21
-        targetSdk 30
+        minSdk AppSettings.MIN_SDK
+        targetSdk AppSettings.TARGET_SDK
         versionCode 1
         versionName "1.0"
 
@@ -33,10 +39,54 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation Deps.AndroidX.CORE_KTX
+    implementation Deps.AndroidX.APP_COMPAT
+    implementation Deps.MATERIAL_DESIGN
+    implementation Deps.AndroidX.CONSTRAINT_LAYOUT
+    implementation Deps.AndroidX.SWIPE_REFRESH_LAYOUT
+
+    // Test
+    testImplementation Deps.JUNIT
+    testImplementation Deps.COROUTINES_TEST
+    testImplementation Deps.AndroidX.CORE_TESTING
+    testImplementation Deps.HAMCREST
+    testImplementation Deps.MOCKK
+    testImplementation Deps.ROBOLECTRIC
+    testImplementation Deps.AndroidX.TEST_EXT_JUNIT
+    androidTestImplementation Deps.AndroidX.TEST_ESPRESSO
+
+    // Lifecycle
+    implementation Deps.Lifecycle.RUN_TIME_KTX
+    implementation Deps.Lifecycle.VIEWMODEL_KTX
+    implementation Deps.Lifecycle.LIVE_DATA_KTX
+    implementation Deps.Lifecycle.LIFECYCLE_COMMON_JAVA8
+
+    // Retrofit
+    implementation Deps.Retrofit.RETROFIT
+    implementation Deps.Retrofit.GSON_CONVERTER
+    implementation Deps.Retrofit.OKHTTP
+
+    // Stetho
+    implementation Deps.Stetho.STETHO
+    implementation Deps.Stetho.STETHO_OKHTTP
+
+    // Navigation
+    implementation Deps.Navigation.FRAGMENT_KTX
+    implementation Deps.Navigation.UI_KTX
+
+    // Hilt
+    implementation Deps.Hilt.HILT_ANDROID
+    kapt Deps.Hilt.HILT_COMPILER
+
+    // Timber
+    implementation Deps.TIMBER
+
+    // Room
+    implementation Deps.Room.RUNTIME
+    implementation Deps.Room.KTX
+    kapt Deps.Room.COMPILER
+
+    // Glide
+    implementation Deps.Glide.GLIDE
+    kapt Deps.Glide.COMPILER
 }
