@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/splashFragment"
+    >
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.me.themoviedb.presentation.splash.SplashFragment"
+        android:label="Splash"
+        tools:layout="@layout/fragment_splash"
+        >
+
+        <action
+            android:id="@+id/openMap"
+            app:destination="@+id/mapFragment"
+            app:popUpTo="@+id/splashFragment"
+            app:popUpToInclusive="true"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.me.themoviedb.presentation.map.MapFragment"
+        android:label="Map"
+        tools:layout="@layout/fragment_map"
+        >
+
+        <action
+            android:id="@+id/openLanding"
+            app:destination="@+id/landingFragment"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.me.themoviedb.presentation.landing.LandingFragment"
+        android:label="Landing"
+        tools:layout="@layout/fragment_map"
+        >
+
+        <action
+            android:id="@+id/openDetails"
+            app:destination="@+id/detailsFragment"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.me.themoviedb.presentation.details.MovieDetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_movie_details"
+        >
+
+        <argument
+            android:name="id"
+            app:argType="string"
+            />
+
+    </fragment>
+
+</navigation>
