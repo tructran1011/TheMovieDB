@@ -13,7 +13,11 @@ open class MovieListingViewModel constructor(
 ) : ViewModel() {
 
     private var currentPage = 0
-    private var canLoadMore = false
+
+    private var _canLoadMore = false
+    val canLoadMore: Boolean
+        get() = _canLoadMore
+
     private val _movies = MutableLiveData<List<Movie>>()
     val movies: LiveData<List<Movie>> = _movies
 
@@ -25,7 +29,7 @@ open class MovieListingViewModel constructor(
             if (result.isSuccess()) {
                 result.data?.let { landingPage ->
                     currentPage = landingPage.currentPage
-                    canLoadMore = landingPage.currentPage < landingPage.totalPage
+                    _canLoadMore = landingPage.currentPage < landingPage.totalPage
                     when {
                         landingPage.currentPage == 1 -> _movies.postValue(landingPage.movies)
                         landingPage.currentPage > 1 -> {
@@ -54,6 +58,10 @@ open class MovieListingViewModel constructor(
     }
 
     fun loadMore() {
-        viewModelScope.launch { pageFlow.emit(currentPage + 1) }
+        viewModelScope.launch {
+            if (_canLoadMore) {
+                pageFlow.emit(currentPage + 1)
+            }
+        }
     }
 }

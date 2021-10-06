@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.me.themoviedb.common.EventObserver
 import com.me.themoviedb.common.util.addSimpleDivider
 import com.me.themoviedb.databinding.FragmentListingBinding
@@ -42,11 +43,28 @@ abstract class MovieListingFragment : BaseFragment<FragmentListingBinding>() {
 
     private fun setup() {
         binding?.run {
-            rvMovies.layoutManager = LinearLayoutManager(requireContext())
-            rvMovies.addSimpleDivider()
-            rvMovies.adapter = MovieAdapter {
+            val linearLayoutManager = LinearLayoutManager(requireContext())
+
+            val movieAdapter = MovieAdapter {
 
             }
+
+            rvMovies.layoutManager = linearLayoutManager
+            rvMovies.addSimpleDivider()
+            rvMovies.adapter = movieAdapter
+            rvMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val itemCount = movieAdapter.itemCount
+                    if (
+                        viewModel.canLoadMore
+                        && itemCount > 0
+                        && linearLayoutManager.findLastCompletelyVisibleItemPosition() == itemCount - 1
+                    ) {
+                        viewModel.loadMore()
+                    }
+                }
+            })
 
             swipeRefreshLayout.setOnRefreshListener {
                 viewModel.refresh()
