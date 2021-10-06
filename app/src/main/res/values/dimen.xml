@@ -5,6 +5,7 @@
 
     <dimen name="image_size">100dp</dimen>
 
+    <dimen name="text_size_screen_title">24dp</dimen>
     <dimen name="text_size_title">16sp</dimen>
     <dimen name="text_size_desc">14sp</dimen>
 

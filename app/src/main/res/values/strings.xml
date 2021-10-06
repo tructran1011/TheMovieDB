@@ -4,4 +4,6 @@
     <string name="backdrop">backdrop</string>
     <string name="now_playing">Now Playing</string>
     <string name="top_rated">Top Rated</string>
+    <string name="movies">Movies</string>
+    <string name="settings">Settings</string>
 </resources>
