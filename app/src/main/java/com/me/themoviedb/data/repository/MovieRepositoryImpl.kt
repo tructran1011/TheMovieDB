@@ -1,0 +1,24 @@
+package com.me.themoviedb.data.repository
+
+import com.me.themoviedb.common.Result
+import com.me.themoviedb.data.datasource.remote.MovieService
+import com.me.themoviedb.data.mapper.toLandingPage
+import com.me.themoviedb.domain.model.LandingPage
+import com.me.themoviedb.domain.repository.MovieRepository
+import javax.inject.Inject
+
+class MovieRepositoryImpl @Inject constructor(
+    private val movieService: MovieService,
+) : MovieRepository {
+
+    override suspend fun getNowPlaying(page: Int): Result<LandingPage> {
+        return try {
+            val landingPage = movieService
+                .getNowPlaying(page)
+                .toLandingPage()
+            Result.success(landingPage)
+        } catch (e: Exception) {
+            Result.error(e)
+        }
+    }
+}
