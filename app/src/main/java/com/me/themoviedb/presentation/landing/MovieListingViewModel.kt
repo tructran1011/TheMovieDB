@@ -2,6 +2,7 @@ package com.me.themoviedb.presentation.landing
 
 import androidx.lifecycle.*
 import com.me.themoviedb.common.*
+import com.me.themoviedb.domain.model.Ads
 import com.me.themoviedb.domain.model.LandingPage
 import com.me.themoviedb.domain.model.Movie
 import com.me.themoviedb.domain.usecase.FlowUseCase
@@ -19,7 +20,7 @@ open class MovieListingViewModel constructor(
         get() = _canLoadMore
 
     private val _movies = MutableLiveData<List<Movie>>()
-    val movies: LiveData<List<Movie>> = _movies
+    val movies: LiveData<List<LandingItem>> = _movies.map { generateLandingItem(it) }
 
     private val pageFlow = MutableSharedFlow<Int>()
 
@@ -62,6 +63,19 @@ open class MovieListingViewModel constructor(
             if (_canLoadMore) {
                 pageFlow.emit(currentPage + 1)
             }
+        }
+    }
+
+    private fun generateLandingItem(movies: List<Movie>): List<LandingItem> {
+        var adsCount = 0
+        return movies.foldIndexed(initial = arrayListOf()) { index, items, movie ->
+            items.add(MovieItem(movie))
+            if (index % 3 == 2) {
+                adsCount++
+                val ads = Ads(id = adsCount, content = "Advertisement $adsCount")
+                items.add(AdsItem(ads))
+            }
+            items
         }
     }
 }

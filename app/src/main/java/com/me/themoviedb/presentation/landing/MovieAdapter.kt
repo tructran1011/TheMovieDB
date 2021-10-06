@@ -9,44 +9,22 @@ import com.me.themoviedb.databinding.ItemMovieBinding
 import com.me.themoviedb.domain.model.Movie
 
 class MovieAdapter(
-    private val onItemClick: (Movie) -> Unit
-) : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(Movie.DIFF_CALLBACK) {
+    private val onItemClick: (Movie) -> Unit,
+) : ListAdapter<LandingItem, LandingViewHolder>(LandingItem.DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding = ItemMovieBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return MovieViewHolder(binding, onItemClick)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LandingViewHolder {
+        return LandingViewHolder.Factory(
+            inflater = LayoutInflater.from(parent.context),
+            viewGroup = parent,
+            onMovieClick = onItemClick
+        ).create(viewType)
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: LandingViewHolder, position: Int) {
+        getItem(position)?.bind(holder)
     }
 
-    class MovieViewHolder(
-        private val binding: ItemMovieBinding,
-        onItemClick: (Movie) -> Unit
-    ) : RecyclerView.ViewHolder(binding.root) {
-
-        private var movie: Movie? = null
-
-        init {
-            binding.root.setOnClickListener {
-                movie?.let { onItemClick(it) }
-            }
-        }
-
-        fun bind(movie: Movie) {
-            this.movie = movie
-            binding.run {
-                ivImage.setImageResource(R.mipmap.ic_launcher)
-                tvTitle.text = movie.title
-                tvTime.text = movie.releaseDate
-                tvOverview.text = movie.overview
-                tvRate.text = movie.voteAverage.toString()
-            }
-        }
+    override fun getItemViewType(position: Int): Int {
+        return getItem(position).type
     }
 }
