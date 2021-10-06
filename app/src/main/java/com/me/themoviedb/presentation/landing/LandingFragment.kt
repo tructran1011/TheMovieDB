@@ -4,20 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.me.themoviedb.common.EventObserver
-import com.me.themoviedb.common.util.addSimpleDivider
+import com.google.android.material.tabs.TabLayoutMediator
 import com.me.themoviedb.databinding.FragmentLandingBinding
+import com.me.themoviedb.databinding.ItemTabBinding
 import com.me.themoviedb.presentation.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class LandingFragment : BaseFragment<FragmentLandingBinding>() {
-
-    private val viewModel: LandingViewModel by viewModels()
 
     override fun inflateView(
         inflater: LayoutInflater,
@@ -26,47 +20,28 @@ class LandingFragment : BaseFragment<FragmentLandingBinding>() {
         return FragmentLandingBinding.inflate(inflater, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycleScope.launchWhenResumed {
-            viewModel.refresh()
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setup()
-        observeData()
     }
 
     private fun setup() {
         binding?.run {
-            rvMovies.layoutManager = LinearLayoutManager(requireContext())
-            rvMovies.addSimpleDivider()
-            rvMovies.adapter = MovieAdapter {
+            vpLanding.offscreenPageLimit = LandingScreen.values().size
+            vpLanding.adapter = LandingPagerAdapter(this@LandingFragment)
 
-            }
+
+            TabLayoutMediator(tlBottom, vpLanding, true, true) { tab, position ->
+                val inflater = LayoutInflater.from(requireContext())
+                val tabViewBinding = ItemTabBinding.inflate(inflater)
+                val landingScreen = LandingScreen.values()[position]
+
+                tabViewBinding.tvText.setText(landingScreen.textResId)
+                tabViewBinding.ivIcon.setImageResource(landingScreen.iconResId)
+
+                tab.customView = tabViewBinding.root
+            }.attach()
         }
     }
-
-    private fun observeData() {
-        viewModel.run {
-            movies.observe(viewLifecycleOwner) {
-                Timber.d("Movies: ${it.size}")
-                getAdapter()?.submitList(it)
-            }
-
-            fetchError.observe(viewLifecycleOwner, EventObserver {
-                Timber.d("Error: $it")
-            })
-
-            isLoading.observe(viewLifecycleOwner) {
-                Timber.d("Is Loading: $it")
-            }
-        }
-    }
-
-    private fun getAdapter(): MovieAdapter? =
-        binding?.rvMovies?.adapter as? MovieAdapter
 }
