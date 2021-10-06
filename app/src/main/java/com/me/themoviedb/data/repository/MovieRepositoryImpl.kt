@@ -21,4 +21,15 @@ class MovieRepositoryImpl @Inject constructor(
             Result.error(e)
         }
     }
+
+    override suspend fun getTopRated(page: Int): Result<LandingPage> {
+        return try {
+            val landingPage = movieService
+                .getTopRated(page)
+                .toLandingPage()
+            Result.success(landingPage)
+        } catch (e: Exception) {
+            Result.error(e)
+        }
+    }
 }

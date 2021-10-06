@@ -6,5 +6,6 @@ import com.me.themoviedb.domain.model.LandingPage
 interface MovieRepository {
 
     suspend fun getNowPlaying(page: Int): Result<LandingPage>
+    suspend fun getTopRated(page: Int): Result<LandingPage>
 
 }

@@ -47,7 +47,7 @@ data class LandingPageDto(
         @SerializedName("video")
         val video: Boolean? = null,
         @SerializedName("vote_average")
-        val voteAverage: Double? = null,
+        val voteAverage: Float? = null,
         @SerializedName("vote_count")
         val voteCount: Int? = null
     )

@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.me.themoviedb.common.EventObserver
+import com.me.themoviedb.common.util.addSimpleDivider
 import com.me.themoviedb.databinding.FragmentLandingBinding
 import com.me.themoviedb.presentation.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,8 +42,10 @@ class LandingFragment : BaseFragment<FragmentLandingBinding>() {
 
     private fun setup() {
         binding?.run {
-            btnNext.setOnClickListener {
-                goToNextScreen()
+            rvMovies.layoutManager = LinearLayoutManager(requireContext())
+            rvMovies.addSimpleDivider()
+            rvMovies.adapter = MovieAdapter {
+
             }
         }
     }
@@ -49,7 +53,8 @@ class LandingFragment : BaseFragment<FragmentLandingBinding>() {
     private fun observeData() {
         viewModel.run {
             movies.observe(viewLifecycleOwner) {
-                Timber.d("Movies: $it")
+                Timber.d("Movies: ${it.size}")
+                getAdapter()?.submitList(it)
             }
 
             fetchError.observe(viewLifecycleOwner, EventObserver {
@@ -62,9 +67,6 @@ class LandingFragment : BaseFragment<FragmentLandingBinding>() {
         }
     }
 
-    private fun goToNextScreen() {
-        val directions =
-            LandingFragmentDirections.openDetails("Test ID")
-        navigate(directions)
-    }
+    private fun getAdapter(): MovieAdapter? =
+        binding?.rvMovies?.adapter as? MovieAdapter
 }

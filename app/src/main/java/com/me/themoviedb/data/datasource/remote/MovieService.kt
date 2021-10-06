@@ -10,4 +10,9 @@ interface MovieService {
     suspend fun getNowPlaying(
         @Query("page") page: Int
     ) : LandingPageDto
+
+    @GET("movie/top_rated")
+    suspend fun getTopRated(
+        @Query("page") page: Int
+    ) : LandingPageDto
 }

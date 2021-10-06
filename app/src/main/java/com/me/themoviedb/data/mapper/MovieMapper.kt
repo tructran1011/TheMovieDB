@@ -21,6 +21,10 @@ fun LandingPageDto.ResultDto.toMovie(): Movie? =
     } else {
         Movie(
             id = id,
-            title = this.title ?: ""
+            title = this.title ?: "",
+            overview = this.overview ?: "",
+            releaseDate = this.releaseDate ?: "",
+            voteAverage = voteAverage ?: 0F,
+            image = backdropPath ?: "",
         )
     }
