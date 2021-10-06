@@ -1,4 +1,4 @@
-package com.me.themoviedb.presentation.landing
+package com.me.themoviedb.presentation.landing.tab
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.me.themoviedb.R
 import com.me.themoviedb.databinding.ItemAdsBinding
 import com.me.themoviedb.databinding.ItemMovieBinding
-import com.me.themoviedb.domain.model.Ads
 import com.me.themoviedb.domain.model.Movie
+import com.me.themoviedb.presentation.landing.AdsItem
+import com.me.themoviedb.presentation.landing.MovieItem
 
 open class LandingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 

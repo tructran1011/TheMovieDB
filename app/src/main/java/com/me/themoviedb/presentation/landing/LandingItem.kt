@@ -3,6 +3,9 @@ package com.me.themoviedb.presentation.landing
 import androidx.recyclerview.widget.DiffUtil
 import com.me.themoviedb.domain.model.Ads
 import com.me.themoviedb.domain.model.Movie
+import com.me.themoviedb.presentation.landing.tab.AdsViewHolder
+import com.me.themoviedb.presentation.landing.tab.LandingViewHolder
+import com.me.themoviedb.presentation.landing.tab.MovieViewHolder
 
 sealed class LandingItem {
     abstract val type: Int

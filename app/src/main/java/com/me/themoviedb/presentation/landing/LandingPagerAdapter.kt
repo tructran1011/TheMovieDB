@@ -2,8 +2,8 @@ package com.me.themoviedb.presentation.landing
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.me.themoviedb.presentation.landing.nowplaying.NowPlayingFragment
-import com.me.themoviedb.presentation.landing.toprated.TopRatedFragment
+import com.me.themoviedb.presentation.landing.tab.nowplaying.NowPlayingFragment
+import com.me.themoviedb.presentation.landing.tab.toprated.TopRatedFragment
 
 class LandingPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {

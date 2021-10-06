@@ -1,8 +1,8 @@
-package com.me.themoviedb.presentation.landing.toprated
+package com.me.themoviedb.presentation.landing.tab.toprated
 
 import androidx.fragment.app.viewModels
-import com.me.themoviedb.presentation.landing.MovieListingFragment
-import com.me.themoviedb.presentation.landing.MovieListingViewModel
+import com.me.themoviedb.presentation.landing.tab.MovieListingFragment
+import com.me.themoviedb.presentation.landing.tab.MovieListingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

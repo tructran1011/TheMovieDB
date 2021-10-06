@@ -1,4 +1,4 @@
-package com.me.themoviedb.presentation.landing
+package com.me.themoviedb.presentation.landing.tab
 
 import androidx.lifecycle.*
 import com.me.themoviedb.common.*
@@ -6,6 +6,9 @@ import com.me.themoviedb.domain.model.Ads
 import com.me.themoviedb.domain.model.LandingPage
 import com.me.themoviedb.domain.model.Movie
 import com.me.themoviedb.domain.usecase.FlowUseCase
+import com.me.themoviedb.presentation.landing.AdsItem
+import com.me.themoviedb.presentation.landing.LandingItem
+import com.me.themoviedb.presentation.landing.MovieItem
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 

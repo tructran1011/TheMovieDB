@@ -1,14 +1,12 @@
-package com.me.themoviedb.presentation.landing
+package com.me.themoviedb.presentation.landing.tab
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.me.themoviedb.R
-import com.me.themoviedb.databinding.ItemMovieBinding
 import com.me.themoviedb.domain.model.Movie
+import com.me.themoviedb.presentation.landing.LandingItem
 
-class MovieAdapter(
+class LandingAdapter(
     private val onItemClick: (Movie) -> Unit,
 ) : ListAdapter<LandingItem, LandingViewHolder>(LandingItem.DIFF_CALLBACK) {
 

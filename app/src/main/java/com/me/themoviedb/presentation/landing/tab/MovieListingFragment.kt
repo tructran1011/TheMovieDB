@@ -1,4 +1,4 @@
-package com.me.themoviedb.presentation.landing
+package com.me.themoviedb.presentation.landing.tab
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -45,17 +45,17 @@ abstract class MovieListingFragment : BaseFragment<FragmentListingBinding>() {
         binding?.run {
             val linearLayoutManager = LinearLayoutManager(requireContext())
 
-            val movieAdapter = MovieAdapter {
+            val landingAdapter = LandingAdapter {
 
             }
 
             rvMovies.layoutManager = linearLayoutManager
             rvMovies.addSimpleDivider()
-            rvMovies.adapter = movieAdapter
+            rvMovies.adapter = landingAdapter
             rvMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    val itemCount = movieAdapter.itemCount
+                    val itemCount = landingAdapter.itemCount
                     if (
                         viewModel.canLoadMore
                         && itemCount > 0
@@ -90,6 +90,6 @@ abstract class MovieListingFragment : BaseFragment<FragmentListingBinding>() {
         }
     }
 
-    private fun getAdapter(): MovieAdapter? =
-        binding?.rvMovies?.adapter as? MovieAdapter
+    private fun getAdapter(): LandingAdapter? =
+        binding?.rvMovies?.adapter as? LandingAdapter
 }
