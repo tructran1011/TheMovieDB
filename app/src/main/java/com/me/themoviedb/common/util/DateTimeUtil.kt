@@ -20,3 +20,13 @@ private fun String.convertFormat(oldPattern: String, newPattern: String): String
     Timber.e(e)
     ""
 }
+
+fun Int.minutesToDuration(): String {
+    val hour = this / 60
+    val mins = this % 60
+    return if (mins != 0) {
+        "${hour}h ${mins}m"
+    } else {
+        "${hour}h"
+    }
+}
