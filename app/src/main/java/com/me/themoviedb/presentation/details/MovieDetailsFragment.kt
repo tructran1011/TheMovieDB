@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
+import com.me.themoviedb.R
 import com.me.themoviedb.databinding.FragmentMovieDetailsBinding
 import com.me.themoviedb.presentation.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +24,17 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.tvContent?.text = "Details for ${args.id}"
+
+        setup()
+    }
+
+    private fun setup() {
+        binding?.run {
+            tvScreenTitle.text = getString(
+                R.string.movie_name_with_year,
+                args.title,
+                args.year
+            )
+        }
     }
 }

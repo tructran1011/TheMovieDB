@@ -7,4 +7,9 @@
     <string name="movies">Movies</string>
     <string name="settings">Settings</string>
     <string name="vote_with_format">%.1f - %d votes.</string>
+    <string name="back">Back</string>
+    <string name="poster">Poster</string>
+    <string name="cast_n_crews"><![CDATA[Cast & Crews]]></string>
+
+    <string name="movie_name_with_year">%1$s (%2$s)</string>
 </resources>

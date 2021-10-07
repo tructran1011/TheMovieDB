@@ -55,7 +55,7 @@ class MovieViewHolder(
         binding.run {
             ivImage.loadCenterCrop(movie.image)
             tvTitle.text = movie.title
-            tvTime.text = movie.releaseDate.getYear()
+            tvTime.text = movie.year
             tvOverview.text = movie.overview
             tvRate.text = binding.root.context.getString(
                 R.string.vote_with_format,

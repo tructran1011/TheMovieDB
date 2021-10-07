@@ -1,6 +1,6 @@
 package com.me.themoviedb.domain.model
 
-import androidx.recyclerview.widget.DiffUtil
+import com.me.themoviedb.common.util.getYear
 
 data class Movie(
     val id: Int,
@@ -11,15 +11,7 @@ data class Movie(
     val voteCount: Int,
     val image: String,
 ) {
-    companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
-            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-                return oldItem.id == newItem.id
-            }
 
-            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-                return oldItem == newItem
-            }
-        }
-    }
+    val year: String
+        get() = releaseDate.getYear()
 }

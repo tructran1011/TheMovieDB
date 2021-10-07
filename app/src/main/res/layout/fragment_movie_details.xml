@@ -2,18 +2,197 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
-    <TextView
-        android:id="@+id/tv_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <!--Top Bar-->
+
+    <View
+        android:id="@+id/v_top_bar_background"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimaryVariant"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/v_top_bar_background"
+        app:layout_constraintTop_toTopOf="@+id/v_top_bar_background"
+        app:layout_constraintBottom_toBottomOf="@+id/v_top_bar_background"
+        android:src="@drawable/ic_back"
+        android:layout_marginStart="@dimen/space_top_bar_padding"
+        android:contentDescription="@string/back"
+        android:padding="@dimen/space_xsmall"
+        />
+
+    <TextView
+        android:id="@+id/tv_screen_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_screen_title"
+        android:textColor="?attr/colorOnPrimary"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/iv_back"
+        app:layout_constraintEnd_toStartOf="@+id/iv_settings"
+        app:layout_constraintTop_toTopOf="@+id/v_top_bar_background"
+        app:layout_constraintBottom_toBottomOf="@+id/v_top_bar_background"
+        tools:ignore="SpUsage"
+        tools:text="@string/movies"
+        />
+
+    <ImageView
+        android:id="@+id/iv_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_settings"
+        app:layout_constraintTop_toTopOf="@+id/v_top_bar_background"
+        app:layout_constraintBottom_toBottomOf="@+id/v_top_bar_background"
+        app:layout_constraintEnd_toEndOf="@+id/v_top_bar_background"
+        android:padding="@dimen/space_xsmall"
+        android:layout_marginEnd="@dimen/space_normal"
+        android:contentDescription="@string/settings"
+        />
+
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/v_top_bar_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        >
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="visible"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/space_normal"
+                tools:ignore="MissingConstraints"
+                >
+
+                <!--Detail-->
+                <ImageView
+                    android:id="@+id/iv_poster"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintDimensionRatio="H,16:9"
+                    android:contentDescription="@string/poster"
+                    tools:background="#2200ff00"
+                    />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_poster"
+                    >
+
+                    <View
+                        style="@style/divider"
+                        android:layout_marginTop="0dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_xsmall"
+                        style="@style/title"
+                        tools:text="Free Guy (2021)"
+                        android:paddingStart="@dimen/space_normal"
+                        android:paddingEnd="@dimen/space_normal"
+                        />
+
+                    <View style="@style/divider" />
+
+                    <TextView
+                        android:id="@+id/tv_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:paddingStart="@dimen/space_normal"
+                        android:paddingEnd="@dimen/space_normal"
+                        android:layout_marginTop="@dimen/space_xsmall"
+                        style="@style/description"
+                        tools:text="7.9/10 | 1h 47m | Action, Adventure, Horror"
+                        />
+
+                    <View style="@style/divider" />
+
+                    <TextView
+                        android:id="@+id/tv_overview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:paddingStart="@dimen/space_normal"
+                        android:paddingEnd="@dimen/space_normal"
+                        style="@style/description"
+                        tools:text="A bank teller called Guy realizes he is a background character in an open world video game called Free City that will soon go offline."
+                        />
+
+                    <View style="@style/divider" />
+
+                    <TextView
+                        android:id="@+id/tv_cast_n_crews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cast_n_crews"
+                        android:paddingStart="@dimen/space_normal"
+                        android:paddingEnd="@dimen/space_normal"
+                        style="@style/title"
+                        />
+
+                    <View style="@style/divider" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_cast_n_crews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:layout_height="100dp"
+                        tools:background="#220000ff"
+                        />
+
+                    <View style="@style/divider" />
+
+                    <TextView
+                        android:id="@+id/tv_director"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/space_normal"
+                        android:paddingEnd="@dimen/space_normal"
+                        style="@style/title"
+                        tools:text="Director: Shane and 3 more"
+                        />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
