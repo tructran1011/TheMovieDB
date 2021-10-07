@@ -8,6 +8,7 @@ data class Movie(
     val overview: String,
     val releaseDate: String,
     val voteAverage: Float,
+    val voteCount: Int,
     val image: String,
 ) {
     companion object {

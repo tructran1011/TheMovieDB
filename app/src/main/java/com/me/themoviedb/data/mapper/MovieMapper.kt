@@ -33,6 +33,7 @@ suspend fun LandingPageDto.ResultDto.toMovie(
             overview = this.overview ?: "",
             releaseDate = this.releaseDate ?: "",
             voteAverage = voteAverage ?: 0F,
+            voteCount = voteCount ?: 0,
             image = fullImageUrl,
         )
     }

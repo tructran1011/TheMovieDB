@@ -57,7 +57,11 @@ class MovieViewHolder(
             tvTitle.text = movie.title
             tvTime.text = movie.releaseDate.getYear()
             tvOverview.text = movie.overview
-            tvRate.text = movie.voteAverage.toString()
+            tvRate.text = binding.root.context.getString(
+                R.string.vote_with_format,
+                movie.voteAverage,
+                movie.voteCount
+            )
         }
     }
 
