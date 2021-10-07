@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.tabs.TabLayoutMediator
 import com.me.themoviedb.databinding.FragmentLandingBinding
+import com.me.themoviedb.databinding.ItemTabBinding
 import com.me.themoviedb.presentation.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,15 +28,20 @@ class LandingFragment : BaseFragment<FragmentLandingBinding>() {
 
     private fun setup() {
         binding?.run {
-            btnNext.setOnClickListener {
-                goToNextScreen()
-            }
-        }
-    }
+            vpLanding.offscreenPageLimit = LandingScreen.values().size
+            vpLanding.adapter = LandingPagerAdapter(this@LandingFragment)
 
-    private fun goToNextScreen() {
-        val directions =
-            LandingFragmentDirections.openDetails("Test ID")
-        navigate(directions)
+
+            TabLayoutMediator(tlBottom, vpLanding, true, true) { tab, position ->
+                val inflater = LayoutInflater.from(requireContext())
+                val tabViewBinding = ItemTabBinding.inflate(inflater)
+                val landingScreen = LandingScreen.values()[position]
+
+                tabViewBinding.tvText.setText(landingScreen.textResId)
+                tabViewBinding.ivIcon.setImageResource(landingScreen.iconResId)
+
+                tab.customView = tabViewBinding.root
+            }.attach()
+        }
     }
 }

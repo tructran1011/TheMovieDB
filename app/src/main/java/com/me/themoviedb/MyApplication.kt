@@ -18,7 +18,7 @@ class MyApplication : Application() {
             Timber.plant(object : Timber.DebugTree() {
 
                 override fun createStackElementTag(element: StackTraceElement): String {
-                    return "coin_(${element.fileName}:${element.lineNumber})"
+                    return "movie_(${element.fileName}:${element.lineNumber})"
                 }
             })
         }

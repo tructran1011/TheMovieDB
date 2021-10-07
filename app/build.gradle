@@ -20,6 +20,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
+        buildConfigField "String", "API_KEY", "\"67ff40d2284b3c065b55399de95caa20\""
     }
 
     buildTypes {
@@ -90,6 +93,9 @@ dependencies {
     implementation Deps.Lifecycle.VIEWMODEL_KTX
     implementation Deps.Lifecycle.LIVE_DATA_KTX
     implementation Deps.Lifecycle.LIFECYCLE_COMMON_JAVA8
+    
+    // DataStore
+    implementation Deps.DATA_STORE
 
     // Retrofit
     implementation Deps.Retrofit.RETROFIT

@@ -6,6 +6,7 @@ object Deps {
 
     const val MATERIAL_DESIGN = "com.google.android.material:material:1.4.0"
     const val TIMBER = "com.jakewharton.timber:timber:5.0.1"
+    const val DATA_STORE = "androidx.datastore:datastore-preferences:1.0.0"
 
     // For Test
     const val JUNIT = "junit:junit:4.13.2"
