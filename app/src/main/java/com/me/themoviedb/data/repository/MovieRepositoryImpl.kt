@@ -1,6 +1,7 @@
 package com.me.themoviedb.data.repository
 
 import com.me.themoviedb.common.Result
+import com.me.themoviedb.common.helper.StringProvider
 import com.me.themoviedb.data.datasource.remote.MovieService
 import com.me.themoviedb.data.mapper.toLandingPage
 import com.me.themoviedb.domain.model.LandingPage
@@ -10,6 +11,7 @@ import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
     private val movieService: MovieService,
+    private val stringProvider: StringProvider
 ) : MovieRepository {
 
     override suspend fun getNowPlaying(page: Int): Result<LandingPage> {
@@ -17,7 +19,7 @@ class MovieRepositoryImpl @Inject constructor(
         return try {
             val landingPage = movieService
                 .getNowPlaying(page)
-                .toLandingPage()
+                .toLandingPage(this::createFullUrl)
             Result.success(landingPage)
         } catch (e: Exception) {
             Result.error(e)
@@ -29,10 +31,13 @@ class MovieRepositoryImpl @Inject constructor(
         return try {
             val landingPage = movieService
                 .getTopRated(page)
-                .toLandingPage()
+                .toLandingPage(this::createFullUrl)
             Result.success(landingPage)
         } catch (e: Exception) {
             Result.error(e)
         }
     }
+
+    private suspend fun createFullUrl(path: String): String =
+        stringProvider.getFullImageUrl(path)
 }

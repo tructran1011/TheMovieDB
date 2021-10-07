@@ -1,12 +1,17 @@
 package com.me.themoviedb.data.mapper
 
+import com.me.themoviedb.common.helper.StringProvider
 import com.me.themoviedb.data.datasource.remote.dto.LandingPageDto
 import com.me.themoviedb.domain.model.LandingPage
 import com.me.themoviedb.domain.model.Movie
 
-fun LandingPageDto.toLandingPage(): LandingPage {
+suspend fun LandingPageDto.toLandingPage(
+    createFullUrl: suspend (String) -> String
+): LandingPage {
     val movies =
-        results?.mapNotNull { it.toMovie() } ?: emptyList()
+        results
+            ?.mapNotNull { it.toMovie(createFullUrl) }
+            ?: emptyList()
 
     return LandingPage(
         currentPage = page ?: 0,
@@ -15,16 +20,19 @@ fun LandingPageDto.toLandingPage(): LandingPage {
     )
 }
 
-fun LandingPageDto.ResultDto.toMovie(): Movie? =
+suspend fun LandingPageDto.ResultDto.toMovie(
+    createFullUrl: suspend (String) -> String
+): Movie? =
     if (id == null) {
         null
     } else {
+        val fullImageUrl = createFullUrl(backdropPath ?: "")
         Movie(
             id = id,
             title = this.title ?: "",
             overview = this.overview ?: "",
             releaseDate = this.releaseDate ?: "",
             voteAverage = voteAverage ?: 0F,
-            image = backdropPath ?: "",
+            image = fullImageUrl,
         )
     }

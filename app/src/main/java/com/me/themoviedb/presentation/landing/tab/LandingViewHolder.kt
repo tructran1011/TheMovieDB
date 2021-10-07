@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.me.themoviedb.R
+import com.me.themoviedb.common.util.loadCenterCrop
 import com.me.themoviedb.databinding.ItemAdsBinding
 import com.me.themoviedb.databinding.ItemMovieBinding
 import com.me.themoviedb.domain.model.Movie
@@ -51,7 +52,7 @@ class MovieViewHolder(
         val movie = movieItem.movie
         this.movie = movie
         binding.run {
-            ivImage.setImageResource(R.mipmap.ic_launcher)
+            ivImage.loadCenterCrop(movie.image)
             tvTitle.text = movie.title
             tvTime.text = movie.releaseDate
             tvOverview.text = movie.overview
