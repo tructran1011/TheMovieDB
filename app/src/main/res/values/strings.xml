@@ -14,4 +14,5 @@
     <string name="movie_name_with_year">%1$s (%2$s)</string>
     <string name="movie_details_info">%1$.1f/10 | %2$s | %3$s</string>
     <string name="director_with_format">Director: %s</string>
+    <string name="avatar">Avatar</string>
 </resources>

@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import com.me.themoviedb.R
 import com.me.themoviedb.common.EventObserver
 import com.me.themoviedb.common.util.load
@@ -52,6 +53,9 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
                 args.title,
                 args.year
             )
+
+            rvCastNCrews.layoutManager = GridLayoutManager(requireContext(), 4)
+            rvCastNCrews.adapter = MemberAdapter()
         }
     }
 
@@ -67,7 +71,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
 
             data.observe(viewLifecycleOwner) { (details, credits) ->
                 binding?.run {
-                    swipeRefreshLayout.isVisible = true
+                    scrollView.isVisible = true
                     Timber.d("Details: $details")
                     Timber.d("Credits: $credits")
                     displayData(details, credits)
@@ -88,7 +92,10 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
             )
             tvOverview.text = details.overview
             tvDirector.text = getString(R.string.director_with_format, credits.displayDirectorNames)
-
+            getAdapter()?.submitList(credits.members)
         }
     }
+
+    private fun getAdapter(): MemberAdapter? =
+        binding?.rvCastNCrews?.adapter as? MemberAdapter
 }
