@@ -13,7 +13,7 @@ class MemberViewHolder(view: View) : MovieDetailsViewHolder(view) {
     override fun displayMember(memberItem: MemberItem) {
         val member = memberItem.member
         binding.run {
-            ivAvatar.load(member.avatar)
+            ivAvatar.load(member.avatar, R.drawable.ic_person)
             tvName.text = member.name
             tvJob.text = member.job
         }
