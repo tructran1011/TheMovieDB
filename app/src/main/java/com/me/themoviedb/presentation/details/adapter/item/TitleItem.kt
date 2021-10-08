@@ -5,6 +5,8 @@ import com.me.themoviedb.presentation.details.adapter.viewholder.TitleViewHolder
 
 data class TitleItem(
     val title: String,
+    val needTopDivider: Boolean = false,
+    val needBotDivider: Boolean = true,
 ) : MovieDetailsItem() {
     override val type = TitleViewHolder.LAYOUT_ID
 

@@ -143,7 +143,9 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
                 getString(
                     R.string.director_with_format,
                     credits.displayDirectorNames
-                )
+                ),
+                needTopDivider = members.isNotEmpty(), // If have members list, need to show top divider
+                needBotDivider = false,
             )
 
             val list = arrayListOf<MovieDetailsItem>()
