@@ -7,6 +7,13 @@
     app:startDestination="@+id/splashFragment"
     >
 
+    <!--Global Actions-->
+    <action
+        android:id="@+id/openDetails"
+        app:destination="@+id/detailsFragment"
+        />
+
+    <!--Splash-->
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.me.themoviedb.presentation.splash.SplashFragment"
@@ -23,6 +30,7 @@
 
     </fragment>
 
+    <!--Map-->
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.me.themoviedb.presentation.map.MapFragment"
@@ -37,20 +45,15 @@
 
     </fragment>
 
+    <!--Landing-->
     <fragment
         android:id="@+id/landingFragment"
         android:name="com.me.themoviedb.presentation.landing.LandingFragment"
         android:label="Landing"
         tools:layout="@layout/fragment_map"
-        >
+        />
 
-        <action
-            android:id="@+id/openDetails"
-            app:destination="@+id/detailsFragment"
-            />
-
-    </fragment>
-
+    <!--Details-->
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.me.themoviedb.presentation.details.MovieDetailsFragment"
@@ -60,6 +63,16 @@
 
         <argument
             android:name="id"
+            app:argType="integer"
+            />
+
+        <argument
+            android:name="title"
+            app:argType="string"
+            />
+
+        <argument
+            android:name="year"
             app:argType="string"
             />
 

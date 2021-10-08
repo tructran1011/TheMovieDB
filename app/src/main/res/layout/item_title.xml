@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <View
+        android:id="@+id/v_top_divider"
+        style="@style/divider"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/space_normal"
+        android:paddingTop="@dimen/space_small"
+        android:paddingEnd="@dimen/space_normal"
+        android:paddingBottom="@dimen/space_small"
+        tools:text="Free Guy (2021)"
+        />
+
+    <View
+        android:id="@+id/v_bot_divider"
+        style="@style/divider"
+        android:visibility="gone"
+        />
+</LinearLayout>

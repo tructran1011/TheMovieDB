@@ -5,13 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.me.themoviedb.R
-import com.me.themoviedb.common.util.getYear
-import com.me.themoviedb.common.util.loadCenterCrop
+import com.me.themoviedb.common.util.load
 import com.me.themoviedb.databinding.ItemAdsBinding
 import com.me.themoviedb.databinding.ItemMovieBinding
 import com.me.themoviedb.domain.model.Movie
-import com.me.themoviedb.presentation.landing.AdsItem
-import com.me.themoviedb.presentation.landing.MovieItem
 
 open class LandingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -53,9 +50,9 @@ class MovieViewHolder(
         val movie = movieItem.movie
         this.movie = movie
         binding.run {
-            ivImage.loadCenterCrop(movie.image)
+            ivImage.load(movie.image)
             tvTitle.text = movie.title
-            tvTime.text = movie.releaseDate.getYear()
+            tvTime.text = movie.year
             tvOverview.text = movie.overview
             tvRate.text = binding.root.context.getString(
                 R.string.vote_with_format,

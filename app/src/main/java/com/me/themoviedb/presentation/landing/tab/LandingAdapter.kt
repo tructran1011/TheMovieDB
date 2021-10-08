@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.me.themoviedb.domain.model.Movie
-import com.me.themoviedb.presentation.landing.LandingItem
 
 class LandingAdapter(
     private val onItemClick: (Movie) -> Unit,

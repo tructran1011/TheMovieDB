@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.me.themoviedb.NavGraphDirections
 import com.me.themoviedb.common.EventObserver
 import com.me.themoviedb.common.util.addSimpleDivider
 import com.me.themoviedb.databinding.FragmentListingBinding
+import com.me.themoviedb.domain.model.Movie
 import com.me.themoviedb.presentation.BaseFragment
 import timber.log.Timber
 
@@ -46,7 +48,7 @@ abstract class MovieListingFragment : BaseFragment<FragmentListingBinding>() {
             val linearLayoutManager = LinearLayoutManager(requireContext())
 
             val landingAdapter = LandingAdapter {
-
+                goToDetails(it)
             }
 
             rvMovies.layoutManager = linearLayoutManager
@@ -92,4 +94,13 @@ abstract class MovieListingFragment : BaseFragment<FragmentListingBinding>() {
 
     private fun getAdapter(): LandingAdapter? =
         binding?.rvMovies?.adapter as? LandingAdapter
+
+    private fun goToDetails(movie: Movie) {
+        val directions = NavGraphDirections.openDetails(
+            movie.id,
+            movie.title,
+            movie.year
+        )
+        navigate(directions)
+    }
 }

@@ -7,7 +7,11 @@ import javax.inject.Singleton
 class StringProvider @Inject constructor(
     private val appConfig: AppConfig
 ){
-    suspend fun getFullImageUrl(path: String): String {
+    suspend fun getFullImageUrl(path: String?): String {
+        if (path.isNullOrBlank()) {
+            return ""
+        }
+
         val baseUrl = appConfig.getImageBaseUrl()
         val size = appConfig.getImageSize()
         return baseUrl + size + path
