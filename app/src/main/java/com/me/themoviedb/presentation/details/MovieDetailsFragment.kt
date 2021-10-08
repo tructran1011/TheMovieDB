@@ -11,14 +11,15 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.me.themoviedb.R
 import com.me.themoviedb.common.EventObserver
-import com.me.themoviedb.common.util.load
 import com.me.themoviedb.common.util.toast
 import com.me.themoviedb.databinding.FragmentMovieDetailsBinding
 import com.me.themoviedb.domain.model.MovieCredits
 import com.me.themoviedb.domain.model.MovieDetails
 import com.me.themoviedb.presentation.BaseFragment
+import com.me.themoviedb.presentation.details.adapter.MovieDetailsAdapter
+import com.me.themoviedb.presentation.details.adapter.item.*
+import com.me.themoviedb.presentation.details.adapter.viewholder.MemberViewHolder
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
@@ -54,8 +55,25 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
                 args.year
             )
 
-            rvCastNCrews.layoutManager = GridLayoutManager(requireContext(), 4)
-            rvCastNCrews.adapter = MemberAdapter()
+            swipeRefreshLayout.setOnRefreshListener { viewModel.fetch(args.id) }
+
+            val adapter = MovieDetailsAdapter()
+            val layoutManager = GridLayoutManager(
+                requireContext(),
+                4
+            ).apply {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return if (adapter.getItemViewType(position) == MemberViewHolder.LAYOUT_ID) {
+                            1
+                        } else {
+                            4
+                        }
+                    }
+                }
+            }
+            rvDetails.layoutManager = layoutManager
+            rvDetails.adapter = adapter
         }
     }
 
@@ -71,9 +89,9 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
 
             data.observe(viewLifecycleOwner) { (details, credits) ->
                 binding?.run {
-                    scrollView.isVisible = true
-                    Timber.d("Details: $details")
-                    Timber.d("Credits: $credits")
+                    rvDetails.isVisible = true
+//                    Timber.d("Details: $details")
+//                    Timber.d("Credits: $credits")
                     displayData(details, credits)
                 }
             }
@@ -82,20 +100,48 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
 
     private fun displayData(details: MovieDetails, credits: MovieCredits) {
         binding?.run {
-            ivPoster.load(details.image)
-            tvTitle.text = getString(R.string.movie_name_with_year, details.title, details.year)
-            tvDescription.text = getString(
-                R.string.movie_details_info,
-                details.voteAvg,
-                details.duration,
-                details.genres.joinToString()
+            val poster = PosterItem(details.image)
+            val title = TitleItem(getString(R.string.movie_name_with_year, details.title, details.year))
+            val info = InfoItem(
+                getString(
+                    R.string.movie_details_info,
+                    details.voteAvg,
+                    details.duration,
+                    details.genres.joinToString()
+                )
             )
-            tvOverview.text = details.overview
-            tvDirector.text = getString(R.string.director_with_format, credits.displayDirectorNames)
-            getAdapter()?.submitList(credits.members)
+            val overviewItem = OverviewItem(details.overview)
+
+            val castAndCrewsLable = CastAndCrewsLabelItem(
+                getString(R.string.cast_n_crews),
+                false,
+            )
+
+            val members = credits.members.subList(0, 5).map { MemberItem(it) }
+
+            val director = TitleItem(
+                getString(
+                    R.string.director_with_format,
+                    credits.displayDirectorNames
+                )
+            )
+
+            val list = arrayListOf<MovieDetailsItem>()
+            list.add(poster)
+            list.add(title)
+            list.add(info)
+            list.add(overviewItem)
+            if (members.isNotEmpty()) {
+                list.add(castAndCrewsLable)
+                list.addAll(members)
+            }
+
+            list.add(director)
+
+            getAdapter()?.submitList(list)
         }
     }
 
-    private fun getAdapter(): MemberAdapter? =
-        binding?.rvCastNCrews?.adapter as? MemberAdapter
+    private fun getAdapter() =
+        binding?.rvDetails?.adapter as? MovieDetailsAdapter
 }
