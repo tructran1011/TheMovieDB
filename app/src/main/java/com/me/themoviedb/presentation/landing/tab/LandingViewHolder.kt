@@ -9,8 +9,6 @@ import com.me.themoviedb.common.util.load
 import com.me.themoviedb.databinding.ItemAdsBinding
 import com.me.themoviedb.databinding.ItemMovieBinding
 import com.me.themoviedb.domain.model.Movie
-import com.me.themoviedb.presentation.landing.AdsItem
-import com.me.themoviedb.presentation.landing.MovieItem
 
 open class LandingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
