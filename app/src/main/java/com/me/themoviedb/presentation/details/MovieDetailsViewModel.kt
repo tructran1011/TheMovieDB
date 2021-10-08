@@ -6,6 +6,7 @@ import com.me.themoviedb.common.isError
 import com.me.themoviedb.common.isLoading
 import com.me.themoviedb.domain.model.MovieCredits
 import com.me.themoviedb.domain.model.MovieDetails
+import com.me.themoviedb.domain.model.MovieDetailsWithCredits
 import com.me.themoviedb.domain.usecase.movie.FetchMovieCreditsUseCase
 import com.me.themoviedb.domain.usecase.movie.FetchMovieDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,8 +26,20 @@ class MovieDetailsViewModel @Inject constructor(
     private val _error = MutableLiveData<Exception>()
     val error: LiveData<Event<Exception>> = _error.map { Event(it) }
 
-    private val _data = MutableLiveData<Pair<MovieDetails, MovieCredits>>()
-    val data: LiveData<Pair<MovieDetails, MovieCredits>> = _data
+    private val _data = MutableSharedFlow<Pair<MovieDetails, MovieCredits>>()
+    private val showAllFlow = MutableStateFlow(false)
+    val data = combine(
+        _data,
+        showAllFlow
+    ) { (details, credits), showAll ->
+        MovieDetailsWithCredits(
+            details = details,
+            credits = credits,
+            showAll = showAll
+        )
+    }
+        .shareIn(viewModelScope, SharingStarted.Eagerly, 1)
+        .asLiveData()
 
     private val idFlow = MutableSharedFlow<Int>()
 
@@ -52,7 +65,7 @@ class MovieDetailsViewModel @Inject constructor(
                 }
 
                 detailsResult.data != null && creditsResult.data != null -> {
-                    _data.postValue(Pair(detailsResult.data, creditsResult.data))
+                    _data.emit(Pair(detailsResult.data, creditsResult.data))
                 }
             }
         }
@@ -60,5 +73,9 @@ class MovieDetailsViewModel @Inject constructor(
 
     fun fetch(id: Int) {
         viewModelScope.launch { idFlow.emit(id) }
+    }
+
+    fun onShowAllChanged(showAll: Boolean) {
+        viewModelScope.launch { showAllFlow.emit(showAll) }
     }
 }

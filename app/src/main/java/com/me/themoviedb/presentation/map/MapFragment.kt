@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.me.themoviedb.common.util.toast
 import com.me.themoviedb.databinding.FragmentMapBinding
 import com.me.themoviedb.presentation.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint

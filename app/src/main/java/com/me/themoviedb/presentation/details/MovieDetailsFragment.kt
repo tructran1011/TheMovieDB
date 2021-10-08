@@ -13,13 +13,13 @@ import com.me.themoviedb.R
 import com.me.themoviedb.common.EventObserver
 import com.me.themoviedb.common.util.toast
 import com.me.themoviedb.databinding.FragmentMovieDetailsBinding
-import com.me.themoviedb.domain.model.MovieCredits
-import com.me.themoviedb.domain.model.MovieDetails
+import com.me.themoviedb.domain.model.MovieDetailsWithCredits
 import com.me.themoviedb.presentation.BaseFragment
 import com.me.themoviedb.presentation.details.adapter.MovieDetailsAdapter
 import com.me.themoviedb.presentation.details.adapter.item.*
 import com.me.themoviedb.presentation.details.adapter.viewholder.MemberViewHolder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.min
 
 @AndroidEntryPoint
 class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
@@ -57,7 +57,12 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
 
             swipeRefreshLayout.setOnRefreshListener { viewModel.fetch(args.id) }
 
-            val adapter = MovieDetailsAdapter()
+            val adapter = MovieDetailsAdapter(object : MovieDetailsAdapter.ItemInteractListener {
+                override fun onShowAllClick(showAll: Boolean) {
+                    viewModel.onShowAllChanged(!showAll)
+                }
+            })
+
             val layoutManager = GridLayoutManager(
                 requireContext(),
                 4
@@ -87,18 +92,21 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
                 toast("Something went wrong. Please try again later.")
             })
 
-            data.observe(viewLifecycleOwner) { (details, credits) ->
+            data.observe(viewLifecycleOwner) { detailsWithCredits ->
                 binding?.run {
                     rvDetails.isVisible = true
 //                    Timber.d("Details: $details")
 //                    Timber.d("Credits: $credits")
-                    displayData(details, credits)
+                    displayData(detailsWithCredits)
                 }
             }
         }
     }
 
-    private fun displayData(details: MovieDetails, credits: MovieCredits) {
+    private fun displayData(detailsWithCredits: MovieDetailsWithCredits) {
+        val details = detailsWithCredits.details
+        val credits = detailsWithCredits.credits
+        val showAll = detailsWithCredits.showAll
         binding?.run {
             val poster = PosterItem(details.image)
             val title = TitleItem(getString(R.string.movie_name_with_year, details.title, details.year))
@@ -112,12 +120,24 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
             )
             val overviewItem = OverviewItem(details.overview)
 
-            val castAndCrewsLable = CastAndCrewsLabelItem(
+            val castAndCrewsLabel = CastAndCrewsLabelItem(
                 getString(R.string.cast_n_crews),
-                false,
+                showAll,
             )
 
-            val members = credits.members.subList(0, 5).map { MemberItem(it) }
+            val members = when {
+                credits.members.isEmpty() -> {
+                    emptyList()
+                }
+                showAll -> {
+                    credits.members
+                }
+                else -> {
+                    val subSize = min(4, credits.members.size)
+                    credits.members.subList(0, subSize)
+                }
+            }
+                .map { MemberItem(it) }
 
             val director = TitleItem(
                 getString(
@@ -132,7 +152,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
             list.add(info)
             list.add(overviewItem)
             if (members.isNotEmpty()) {
-                list.add(castAndCrewsLable)
+                list.add(castAndCrewsLabel)
                 list.addAll(members)
             }
 

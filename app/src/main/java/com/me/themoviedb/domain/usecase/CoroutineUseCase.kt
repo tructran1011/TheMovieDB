@@ -1,9 +1,9 @@
 package com.me.themoviedb.domain.usecase
 
+import com.me.themoviedb.common.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import com.me.themoviedb.common.Result
 
 /**
  * Executes business logic synchronously or asynchronously using Coroutines.
