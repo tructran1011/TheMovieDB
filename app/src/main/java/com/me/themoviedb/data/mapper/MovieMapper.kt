@@ -47,7 +47,7 @@ suspend fun LandingPageDto.ResultDto.toMovie(
 suspend fun MovieDetailsDto.toMovieDetails(
     stringProvider: StringProvider
 ) : MovieDetails {
-    val fullImageUrl = stringProvider.getFullImageUrl(posterPath)
+    val fullImageUrl = stringProvider.getFullImageUrl(backdropPath)
     return MovieDetails(
         image = fullImageUrl,
         title = title ?: "",

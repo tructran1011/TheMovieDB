@@ -1,4 +1,4 @@
-package com.me.themoviedb.common.helper
+package com.me.themoviedb.data.datasource.local
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -55,7 +55,7 @@ class DataStoreAppConfig @Inject constructor(
     }
 
     companion object {
-        private const val DEFAULT_BASE_URL = "http://image.tmdb.org/t/p/"
+        private const val DEFAULT_BASE_URL = "https://image.tmdb.org/t/p/"
         private const val DEFAULT_SIZE = "original"
     }
 }

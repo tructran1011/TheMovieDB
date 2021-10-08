@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.me.themoviedb.databinding.FragmentSplashBinding
 import com.me.themoviedb.presentation.BaseFragment
@@ -30,8 +31,14 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
     }
 
     private fun observeData() {
-        viewModel.timeout.observe(viewLifecycleOwner) {
-            goToNextScreen()
+        viewModel.run {
+            isLoading.observe(viewLifecycleOwner) { isLoading ->
+                binding?.pbLoading?.isVisible = isLoading
+            }
+
+            timeout.observe(viewLifecycleOwner) {
+                goToNextScreen()
+            }
         }
     }
 

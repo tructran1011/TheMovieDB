@@ -18,4 +18,6 @@
     <string name="avatar">Avatar</string>
     <string name="see_all">See all</string>
     <string name="see_less">See less</string>
+
+    <string name="general_error_message">Something went wrong. Please try again later.</string>
 </resources>
