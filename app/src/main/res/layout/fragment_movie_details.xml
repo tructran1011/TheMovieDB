@@ -39,6 +39,8 @@
         android:textSize="@dimen/text_size_screen_title"
         android:textColor="?attr/colorOnPrimary"
         android:textStyle="bold"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/iv_back"
         app:layout_constraintEnd_toStartOf="@+id/iv_settings"
         app:layout_constraintTop_toTopOf="@+id/v_top_bar_background"

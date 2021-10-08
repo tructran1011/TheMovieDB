@@ -54,6 +54,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
                 args.title,
                 args.year
             )
+            ivBack.setOnClickListener { requireActivity().onBackPressed() }
 
             swipeRefreshLayout.setOnRefreshListener { viewModel.fetch(args.id) }
 
