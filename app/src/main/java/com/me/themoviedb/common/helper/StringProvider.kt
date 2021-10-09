@@ -1,5 +1,6 @@
 package com.me.themoviedb.common.helper
 
+import com.me.themoviedb.data.datasource.local.AppConfig
 import javax.inject.Inject
 import javax.inject.Singleton
 

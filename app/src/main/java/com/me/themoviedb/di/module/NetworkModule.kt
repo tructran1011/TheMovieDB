@@ -4,6 +4,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.me.themoviedb.BuildConfig
+import com.me.themoviedb.data.datasource.remote.ConfigurationService
 import com.me.themoviedb.data.datasource.remote.MovieService
 import dagger.Module
 import dagger.Provides
@@ -80,4 +81,9 @@ object NetworkModule {
     @Singleton
     fun provideMovieService(retrofit: Retrofit): MovieService =
         retrofit.create(MovieService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideConfigurationService(retrofit: Retrofit): ConfigurationService =
+        retrofit.create(ConfigurationService::class.java)
 }

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.me.themoviedb.NavGraphDirections
 import com.me.themoviedb.common.EventObserver
 import com.me.themoviedb.common.util.addSimpleDivider
+import com.me.themoviedb.common.util.toastGeneralErrorMessage
 import com.me.themoviedb.databinding.FragmentListingBinding
 import com.me.themoviedb.domain.model.Movie
 import com.me.themoviedb.presentation.BaseFragment
@@ -83,10 +84,11 @@ abstract class MovieListingFragment : BaseFragment<FragmentListingBinding>() {
 
             fetchError.observe(viewLifecycleOwner, EventObserver {
                 Timber.d("Error: $it")
+                toastGeneralErrorMessage()
             })
 
             isLoading.observe(viewLifecycleOwner) { isLoading ->
-                Timber.d("Is Loading: $isLoading")
+//                Timber.d("Is Loading: $isLoading")
                 binding?.swipeRefreshLayout?.isRefreshing = isLoading
             }
         }

@@ -1,6 +1,8 @@
 package com.me.themoviedb.di.module
 
+import com.me.themoviedb.data.repository.ConfigurationRepositoryImpl
 import com.me.themoviedb.data.repository.MovieRepositoryImpl
+import com.me.themoviedb.domain.repository.ConfigurationRepository
 import com.me.themoviedb.domain.repository.MovieRepository
 import dagger.Binds
 import dagger.Module
@@ -15,4 +17,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindMovieRepository(impl: MovieRepositoryImpl): MovieRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindConfigurationRepository(impl: ConfigurationRepositoryImpl): ConfigurationRepository
 }
