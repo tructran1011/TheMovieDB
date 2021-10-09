@@ -8,6 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.me.themoviedb.R
+import com.me.themoviedb.common.util.toast
+import com.me.themoviedb.common.util.toastGeneralErrorMessage
+import com.me.themoviedb.presentation.error.AppError
+import timber.log.Timber
 
 abstract class BaseFragment<T: ViewBinding> : Fragment() {
 
@@ -31,5 +36,15 @@ abstract class BaseFragment<T: ViewBinding> : Fragment() {
 
     protected fun navigate(directions: NavDirections) {
         findNavController().navigate(directions)
+    }
+
+    protected fun handleError(throwable: Throwable) {
+        Timber.e(throwable)
+        val error = AppError.Factory.create(throwable)
+        when (error) {
+            AppError.UnknownError -> toastGeneralErrorMessage()
+            AppError.NetworkError -> toast(R.string.network_error_message)
+            is AppError.ServerError -> toast(R.string.server_error_message)
+        }
     }
 }

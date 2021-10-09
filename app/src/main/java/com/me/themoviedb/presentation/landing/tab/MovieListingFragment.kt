@@ -83,8 +83,7 @@ abstract class MovieListingFragment : BaseFragment<FragmentListingBinding>() {
             }
 
             fetchError.observe(viewLifecycleOwner, EventObserver {
-                Timber.d("Error: $it")
-                toastGeneralErrorMessage()
+                handleError(it)
             })
 
             isLoading.observe(viewLifecycleOwner) { isLoading ->

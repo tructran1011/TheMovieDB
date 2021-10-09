@@ -20,4 +20,6 @@
     <string name="see_less">See less</string>
 
     <string name="general_error_message">Something went wrong. Please try again later.</string>
+    <string name="server_error_message">We had problem with your request. Please try again later.</string>
+    <string name="network_error_message">Please check your internet connection and try again.</string>
 </resources>
