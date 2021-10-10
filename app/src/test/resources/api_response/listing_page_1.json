@@ -1,0 +1,51 @@
+{
+  "dates": {
+    "maximum": "2021-10-15",
+    "minimum": "2021-08-28"
+  },
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/backdrop_path_1",
+      "genre_ids": [
+        878,
+        28
+      ],
+      "id": 1,
+      "original_language": "en",
+      "original_title": "Venom: Let There Be Carnage",
+      "overview": "After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady.",
+      "popularity": 11173.275,
+      "poster_path": "/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg",
+      "release_date": "2021-09-30",
+      "title": "Venom: Let There Be Carnage",
+      "video": false,
+      "vote_average": 7.5,
+      "vote_count": 346
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/backdrop_path_2",
+      "genre_ids": [
+        35,
+        28,
+        12,
+        878
+      ],
+      "id": 2,
+      "original_language": "en",
+      "original_title": "Free Guy",
+      "overview": "A bank teller called Guy realizes he is a background character in an open world video game called Free City that will soon go offline.",
+      "popularity": 8075.543,
+      "poster_path": "/xmbU4JTUm8rsdtn7Y3Fcm30GpeT.jpg",
+      "release_date": "2021-08-11",
+      "title": "Free Guy",
+      "video": false,
+      "vote_average": 7.9,
+      "vote_count": 2393
+    }
+  ],
+  "total_pages": 2,
+  "total_results": 4
+}

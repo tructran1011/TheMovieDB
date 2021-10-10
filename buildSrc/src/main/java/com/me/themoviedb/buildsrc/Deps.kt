@@ -14,6 +14,7 @@ object Deps {
     const val HAMCREST = "org.hamcrest:hamcrest-all:1.3"
     const val MOCKK = "io.mockk:mockk:1.12.0"
     const val ROBOLECTRIC = "org.robolectric:robolectric:4.6.1"
+    const val MOCK_WEB_SERVER = "com.squareup.okhttp3:mockwebserver:4.9.2"
 
     object AndroidX {
         const val CORE_KTX = "androidx.core:core-ktx:1.6.0"

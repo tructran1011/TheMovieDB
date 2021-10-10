@@ -9,23 +9,31 @@ import retrofit2.http.Query
 
 interface MovieService {
 
-    @GET("movie/now_playing")
+    @GET(NOW_PLAYING)
     suspend fun getNowPlaying(
         @Query("page") page: Int
     ) : LandingPageDto
 
-    @GET("movie/top_ratedddd")
+    @GET(TOP_RATED)
     suspend fun getTopRated(
         @Query("page") page: Int
     ) : LandingPageDto
 
-    @GET("movie/{id}")
+    @GET(MOVIE_DETAILS)
     suspend fun getMovieDetails(
-        @Path("id") id: Int
+        @Path(ID) id: Int
     ) : MovieDetailsDto
 
-    @GET("movie/{id}/credits")
+    @GET(MOVIE_CREDITS)
     suspend fun getMovieCredits(
-        @Path("id") id: Int
+        @Path(ID) id: Int
     ) : MovieCreditsDto
+
+    companion object {
+        const val NOW_PLAYING = "movie/now_playing"
+        const val TOP_RATED = "movie/top_rated"
+        const val ID = "id"
+        const val MOVIE_DETAILS = "movie/{$ID}"
+        const val MOVIE_CREDITS = "movie/{$ID}/credits"
+    }
 }
