@@ -32,7 +32,7 @@ class FetchTopRatedUseCaseTest {
         coEvery {
             movieRepo.getTopRated(any())
         } answers {
-            Result.success(FakeDataGenerator.createFakePage(count))
+            Result.success(FakeDataGenerator.createFirstPage(count))
         }
 
         val results = useCase(1).take(2).toList()

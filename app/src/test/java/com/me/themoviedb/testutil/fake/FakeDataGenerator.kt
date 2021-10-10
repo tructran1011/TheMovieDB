@@ -6,22 +6,22 @@ import com.me.themoviedb.domain.model.Movie
 object FakeDataGenerator {
 
 
-    fun createFakePage(movieCount: Int) =
-        createFakePage(
+    fun createFirstPage(movieCount: Int) =
+        createPage(
             page = 1,
             pageCount = 2,
             firstMovieId = 1,
             lastMovieId = movieCount,
         )
 
-    fun createFakePage(page: Int, pageCount: Int, firstMovieId: Int, lastMovieId: Int) =
+    fun createPage(page: Int, pageCount: Int, firstMovieId: Int, lastMovieId: Int) =
         LandingPage(
             currentPage = page,
             totalPage = pageCount,
-            movies = createFakeMovies(firstMovieId, lastMovieId)
+            movies = createMovies(firstMovieId, lastMovieId)
         )
 
-    fun createFakeMovies(firstId: Int, lastId: Int) = (firstId..lastId).map { id ->
+    fun createMovies(firstId: Int, lastId: Int) = (firstId..lastId).map { id ->
         Movie(
             id = id,
             title = "",

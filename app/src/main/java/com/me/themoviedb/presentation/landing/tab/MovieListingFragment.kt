@@ -76,7 +76,7 @@ abstract class MovieListingFragment : BaseFragment<FragmentListingBinding>() {
 
     private fun observeData() {
         viewModel.run {
-            movies.observe(viewLifecycleOwner) {
+            landingItems.observe(viewLifecycleOwner) {
                 Timber.d("Movies: ${it.size}")
                 getAdapter()?.submitList(it)
             }
