@@ -2,6 +2,7 @@ package com.me.themoviedb.common.util
 
 import android.content.Context
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.me.themoviedb.R
 import timber.log.Timber
@@ -18,6 +19,10 @@ fun Fragment.toast(message: String) {
     }
 }
 
+fun Fragment.toast(@StringRes messageId: Int) {
+    toast(getString(messageId))
+}
+
 fun Fragment.toastGeneralErrorMessage() {
-    toast(getString(R.string.general_error_message))
+    toast(R.string.general_error_message)
 }

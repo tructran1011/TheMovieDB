@@ -90,7 +90,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
             }
 
             error.observe(viewLifecycleOwner, EventObserver {
-                toastGeneralErrorMessage()
+                handleError(it)
             })
 
             data.observe(viewLifecycleOwner) { detailsWithCredits ->
