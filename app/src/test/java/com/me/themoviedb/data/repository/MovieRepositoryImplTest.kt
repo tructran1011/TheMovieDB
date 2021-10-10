@@ -4,9 +4,7 @@ import com.me.themoviedb.common.helper.StringProvider
 import com.me.themoviedb.common.isError
 import com.me.themoviedb.common.isSuccess
 import com.me.themoviedb.data.datasource.remote.MovieService
-import com.me.themoviedb.data.datasource.remote.dto.MovieCreditsDto
 import com.me.themoviedb.di.module.NetworkModule
-import com.me.themoviedb.domain.model.MovieCredits
 import com.me.themoviedb.domain.model.MovieCredits.Member.MemberType.Cast
 import com.me.themoviedb.domain.model.MovieCredits.Member.MemberType.Crew
 import com.me.themoviedb.domain.repository.MovieRepository

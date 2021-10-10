@@ -9,8 +9,6 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.me.themoviedb.R
-import com.me.themoviedb.common.util.toast
-import com.me.themoviedb.common.util.toastGeneralErrorMessage
 import com.me.themoviedb.presentation.error.AppError
 import com.me.themoviedb.presentation.error.ErrorDialog
 import timber.log.Timber
