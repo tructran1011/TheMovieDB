@@ -12,6 +12,7 @@ import com.me.themoviedb.R
 import com.me.themoviedb.common.util.toast
 import com.me.themoviedb.common.util.toastGeneralErrorMessage
 import com.me.themoviedb.presentation.error.AppError
+import com.me.themoviedb.presentation.error.ErrorDialog
 import timber.log.Timber
 
 abstract class BaseFragment<T: ViewBinding> : Fragment() {
@@ -41,10 +42,24 @@ abstract class BaseFragment<T: ViewBinding> : Fragment() {
     protected fun handleError(throwable: Throwable) {
         Timber.e(throwable)
         val error = AppError.Factory.create(throwable)
-        when (error) {
-            AppError.UnknownError -> toastGeneralErrorMessage()
-            AppError.NetworkError -> toast(R.string.network_error_message)
-            is AppError.ServerError -> toast(R.string.server_error_message)
+        val dialog = when (error) {
+            AppError.UnknownError -> ErrorDialog(
+                requireContext(),
+                R.drawable.ic_device_unknown,
+                R.string.general_error_message
+            )
+            AppError.NetworkError -> ErrorDialog(
+                requireContext(),
+                R.drawable.ic_wifi_error,
+                R.string.network_error_message
+            )
+            is AppError.ServerError -> ErrorDialog(
+                requireContext(),
+                R.drawable.ic_error,
+                R.string.server_error_message
+            )
         }
+
+        dialog.show()
     }
 }

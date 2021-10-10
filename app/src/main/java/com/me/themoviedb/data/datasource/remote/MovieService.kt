@@ -14,7 +14,7 @@ interface MovieService {
         @Query("page") page: Int
     ) : LandingPageDto
 
-    @GET("movie/top_rated")
+    @GET("movie/top_ratedddd")
     suspend fun getTopRated(
         @Query("page") page: Int
     ) : LandingPageDto
