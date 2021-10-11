@@ -7,6 +7,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -127,4 +128,8 @@ dependencies {
     // Glide
     implementation Deps.Glide.GLIDE
     kapt Deps.Glide.COMPILER
+
+    // Google Maps
+    implementation Deps.GOOGLE_MAPS
+    implementation Deps.GOOGLE_LOCATION
 }
