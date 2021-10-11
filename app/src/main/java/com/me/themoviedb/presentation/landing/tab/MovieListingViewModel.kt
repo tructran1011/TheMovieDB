@@ -13,14 +13,16 @@ open class MovieListingViewModel constructor(
     private val fetchListingUseCase: FlowUseCase<Int, LandingPage>,
 ) : ViewModel() {
 
-    private var currentPage = 0
+    private var _currentPage = 0
+    val currentPage: Int
+        get() = _currentPage
 
     private var _canLoadMore = false
     val canLoadMore: Boolean
         get() = _canLoadMore
 
     private val _movies = MutableLiveData<List<Movie>>()
-    val movies: LiveData<List<LandingItem>> = _movies.map { generateLandingItem(it) }
+    val landingItems: LiveData<List<LandingItem>> = _movies.map { generateLandingItem(it) }
 
     private val pageFlow = MutableSharedFlow<Int>()
 
@@ -29,7 +31,7 @@ open class MovieListingViewModel constructor(
         .onEach { result ->
             if (result.isSuccess()) {
                 result.data?.let { landingPage ->
-                    currentPage = landingPage.currentPage
+                    _currentPage = landingPage.currentPage
                     _canLoadMore = landingPage.currentPage < landingPage.totalPage
                     when {
                         landingPage.currentPage == 1 -> _movies.postValue(landingPage.movies)

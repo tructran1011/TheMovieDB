@@ -86,6 +86,8 @@ dependencies {
     testImplementation Deps.MOCKK
     testImplementation Deps.ROBOLECTRIC
     testImplementation Deps.AndroidX.TEST_EXT_JUNIT
+    testImplementation Deps.MOCK_WEB_SERVER
+
     androidTestImplementation Deps.AndroidX.TEST_ESPRESSO
 
     // Lifecycle

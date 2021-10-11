@@ -11,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.me.themoviedb.R
 import com.me.themoviedb.common.EventObserver
-import com.me.themoviedb.common.util.toastGeneralErrorMessage
 import com.me.themoviedb.databinding.FragmentMovieDetailsBinding
 import com.me.themoviedb.domain.model.MovieDetailsWithCredits
 import com.me.themoviedb.presentation.BaseFragment

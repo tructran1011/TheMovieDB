@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.me.themoviedb.NavGraphDirections
 import com.me.themoviedb.common.EventObserver
 import com.me.themoviedb.common.util.addSimpleDivider
-import com.me.themoviedb.common.util.toastGeneralErrorMessage
 import com.me.themoviedb.databinding.FragmentListingBinding
 import com.me.themoviedb.domain.model.Movie
 import com.me.themoviedb.presentation.BaseFragment
@@ -77,7 +76,7 @@ abstract class MovieListingFragment : BaseFragment<FragmentListingBinding>() {
 
     private fun observeData() {
         viewModel.run {
-            movies.observe(viewLifecycleOwner) {
+            landingItems.observe(viewLifecycleOwner) {
                 Timber.d("Movies: ${it.size}")
                 getAdapter()?.submitList(it)
             }
