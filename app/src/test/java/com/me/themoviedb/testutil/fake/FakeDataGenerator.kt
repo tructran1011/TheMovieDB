@@ -49,24 +49,29 @@ object FakeDataGenerator {
     )
 
     fun createMovieCredits(): MovieCredits {
-        val casts = createMembers(1, 5, FakeMemberType.CAST)
-        val crews = createMembers(5, 10, FakeMemberType.CREW)
-        val directors = createMembers(11, 15, FakeMemberType.DIRECTOR)
+        val casts = createMembersList(1, 5, FakeMemberType.CAST)
+        val crews = createMembersList(5, 10, FakeMemberType.CREW)
+        val directors = createMembersList(11, 15, FakeMemberType.DIRECTOR)
         return MovieCredits(members = casts.plus(crews).plus(directors))
     }
 
-    private fun createMembers(firstId: Int, lastId: Int, type: FakeMemberType) =
+    fun createMembersList(firstId: Int, lastId: Int, type: FakeMemberType) =
         (firstId..lastId).map { id ->
-            MovieCredits.Member(
-                id = id,
-                avatar = "avatar $id",
-                name = "name $id",
-                job = type.job,
-                type = type.type
-            )
+            createMember(id, type)
         }
 
-    private enum class FakeMemberType(val job: String, val type: MemberType) {
+    fun createMember(
+        id: Int,
+        type: FakeMemberType
+    ) = MovieCredits.Member(
+        id = id,
+        avatar = "avatar $id",
+        name = "name $id",
+        job = type.job,
+        type = type.type
+    )
+
+    enum class FakeMemberType(val job: String, val type: MemberType) {
         CAST("actor", Cast),
         CREW("crew", Crew),
         DIRECTOR(MovieCredits.Member.JOB_DIRECTOR, Crew),

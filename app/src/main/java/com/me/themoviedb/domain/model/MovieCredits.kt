@@ -12,7 +12,7 @@ data class MovieCredits(
     val displayDirectorNames = when(directors.size) {
         0 -> ""
         1 -> directors[0]
-        2 -> "${directors[0]} & ${directors[0]}"
+        2 -> "${directors[0]} & ${directors[1]}"
         else -> "${directors[0]} and ${directors.size - 1} more"
     }
 
