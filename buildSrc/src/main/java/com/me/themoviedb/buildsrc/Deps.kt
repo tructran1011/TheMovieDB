@@ -9,6 +9,7 @@ object Deps {
     const val DATA_STORE = "androidx.datastore:datastore-preferences:1.0.0"
     const val SECRECT_GRADLE_PLUGIN = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.0"
     const val GOOGLE_MAPS = "com.google.android.gms:play-services-maps:17.0.1"
+    const val GOOGLE_LOCATION = "com.google.android.gms:play-services-location:18.0.0"
 
     // For Test
     const val JUNIT = "junit:junit:4.13.2"

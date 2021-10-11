@@ -131,4 +131,5 @@ dependencies {
 
     // Google Maps
     implementation Deps.GOOGLE_MAPS
+    implementation Deps.GOOGLE_LOCATION
 }
