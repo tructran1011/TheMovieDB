@@ -1,9 +1,13 @@
 package com.me.themoviedb.domain.model
 
+import com.me.themoviedb.domain.model.MovieCredits.Member.MemberType.Crew
+
 data class MovieCredits(
     val members: List<Member>,
-    val directors: List<String>,
 ) {
+    val directors = members
+        .filter { it.type == Crew && it.job == Member.JOB_DIRECTOR && it.name.isNotEmpty()}
+        .map { it.name }
 
     val displayDirectorNames = when(directors.size) {
         0 -> ""
@@ -22,6 +26,10 @@ data class MovieCredits(
         sealed class MemberType {
             object Cast : MemberType()
             object Crew : MemberType()
+        }
+
+        companion object {
+            const val JOB_DIRECTOR = "Director"
         }
     }
 }

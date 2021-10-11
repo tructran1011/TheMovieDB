@@ -6,6 +6,7 @@ import com.me.themoviedb.common.isLoading
 import com.me.themoviedb.common.isSuccess
 import com.me.themoviedb.domain.model.MovieDetails
 import com.me.themoviedb.domain.repository.MovieRepository
+import com.me.themoviedb.testutil.fake.FakeDataGenerator
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.take
@@ -28,10 +29,11 @@ class FetchMovieDetailsUseCaseTest {
 
     @Test
     fun fetch_success() = testDispatcher.runBlockingTest {
+        val mockDetails = FakeDataGenerator.createMovieDetails()
         coEvery {
             movieRepo.getMovieDetails(any())
         } answers {
-            Result.success(createFakeDetails())
+            Result.success(mockDetails)
         }
 
         val results = useCase(1).take(2).toList()
@@ -42,7 +44,7 @@ class FetchMovieDetailsUseCaseTest {
 
         val details = results[1].data
 
-        assertThat(details?.title, equalTo("test title"))
+        assertThat(details, equalTo(mockDetails))
     }
 
     @Test
@@ -61,15 +63,4 @@ class FetchMovieDetailsUseCaseTest {
 
         assertThat(results[1].throwable, notNullValue())
     }
-
-    private fun createFakeDetails() =
-        MovieDetails(
-            image = "test image",
-            title = "test title",
-            year = "2021",
-            voteAvg = 0.0f,
-            duration = "1h 30m",
-            genres = listOf("action", "comedy"),
-            overview = "great"
-        )
 }
