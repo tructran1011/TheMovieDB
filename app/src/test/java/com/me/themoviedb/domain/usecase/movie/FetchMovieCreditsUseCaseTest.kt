@@ -4,9 +4,8 @@ import com.me.themoviedb.common.Result
 import com.me.themoviedb.common.isError
 import com.me.themoviedb.common.isLoading
 import com.me.themoviedb.common.isSuccess
-import com.me.themoviedb.domain.model.MovieCredits
-import com.me.themoviedb.domain.model.MovieCredits.Member.MemberType.Cast
 import com.me.themoviedb.domain.repository.MovieRepository
+import com.me.themoviedb.testutil.fake.FakeDataGenerator
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.take
@@ -29,10 +28,11 @@ class FetchMovieCreditsUseCaseTest {
 
     @Test
     fun fetch_success() = testDispatcher.runBlockingTest {
+        val mockCredits = FakeDataGenerator.createMovieCredits()
         coEvery {
             movieRepo.getMovieCredits(any())
         } answers {
-            Result.success(createFakeCredits())
+            Result.success(mockCredits)
         }
 
         val results = useCase(1).take(2).toList()
@@ -43,9 +43,7 @@ class FetchMovieCreditsUseCaseTest {
 
         val credits = results[1].data
 
-        assertThat(credits?.members?.map { it.id }, equalTo((1..10).toList()))
-
-        assertThat(credits?.directors, equalTo(listOf("director1", "director2")))
+        assertThat(credits, equalTo(mockCredits))
     }
 
     @Test
@@ -63,21 +61,5 @@ class FetchMovieCreditsUseCaseTest {
         assertThat(results[1].isError(), equalTo(true))
 
         assertThat(results[1].throwable, notNullValue())
-    }
-
-    private fun createFakeCredits() =
-        MovieCredits(
-            members = createFakeMembers(10),
-            directors = listOf("director1", "director2")
-        )
-
-    private fun createFakeMembers(count: Int) = (1..count).map { id ->
-        MovieCredits.Member(
-            id = id,
-            avatar = "",
-            name = "",
-            job = "",
-            type = Cast
-        )
     }
 }

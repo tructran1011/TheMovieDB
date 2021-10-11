@@ -64,14 +64,8 @@ suspend fun MovieCreditsDto.toMovieCredits(
 ): MovieCredits {
     val cast = cast?.mapNotNull { it.toMember(stringProvider) } ?: emptyList()
     val crews = crew?.mapNotNull { it.toMember(stringProvider) } ?: emptyList()
-    val directors = crews
-        .filter { it.job == "Director" && it.name.isNotEmpty()}
-        .map { it.name }
 
-    return MovieCredits(
-        members = cast.plus(crews),
-        directors = directors
-    )
+    return MovieCredits(cast.plus(crews))
 }
 
 suspend fun MovieCreditsDto.CastDto.toMember(
